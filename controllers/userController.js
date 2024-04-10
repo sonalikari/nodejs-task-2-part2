@@ -106,6 +106,7 @@ exports.addUserAddress = async (req, res) => {
         const userId = req.user._id; 
 
         const newAddress = new Address({
+            userId: userId,
             address,
             city,
             state,
