@@ -7,7 +7,6 @@ exports.validateAccessToken = async (req, res, next) => {
         if (!accessToken) {
             return res.status(400).json({ error: 'Access token is required' });
         }
-
         const token = await AccessToken.findOne({ access_token: accessToken }).populate('user_id');
 
         if (!token || token.expiry < Date.now()) {

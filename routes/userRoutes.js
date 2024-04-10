@@ -9,11 +9,11 @@ router.post('/register', validationMiddleware.validateRegistration, userControll
 router.post('/login', validationMiddleware.validateLogin, userController.loginUser);
 
 router.get('/get', authMiddleware.validateAccessToken, userController.getUserData);
-router.put('/delete', authMiddleware.validateAccessToken, userController.deleteUserData);
+router.delete('/delete', authMiddleware.validateAccessToken, userController.deleteUserData);
 
 router.get('/list/:page', userController.getUserList);
 
-router.post('/address', authMiddleware.validateAccessToken, userController.addUserAddress);
+router.post('/address', validationMiddleware.validateAddress, authMiddleware.validateAccessToken, userController.addUserAddress);
 router.get('/get/:id', authMiddleware.validateAccessToken, userController.getUserById);
 
 module.exports = router;
