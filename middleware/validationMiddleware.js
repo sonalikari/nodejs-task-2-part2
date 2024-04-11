@@ -5,12 +5,6 @@ const User = require('../models/user');
 exports.validateRegistration = [
     body('username').notEmpty().isString(),
     body('password').notEmpty().isString(),
-    body('confirmPassword').custom((value, { req }) => {
-        if (value !== req.body.password) {
-            throw new Error('Passwords do not match');
-        }
-        return true;
-    }),
     body('email').notEmpty().isEmail(),
     body('firstname').notEmpty().isString(),
     body('lastname').notEmpty().isString(),

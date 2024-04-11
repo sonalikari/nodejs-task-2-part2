@@ -32,6 +32,15 @@ exports.loginUser = async (req, res) => {
         const { username, password } = req.body;
         const user = await User.findOne({ username });
 
+        if (!user) {
+            return res.status(400).json({ error: 'User not found' });
+        }
+
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        if (!passwordMatch) {
+            return res.status(400).json({ error: 'Invalid username or password' });
+        }
+
         const accessToken = md5(Math.random().toString());
         const expiry = new Date();
         expiry.setHours(expiry.getHours() + 1);
